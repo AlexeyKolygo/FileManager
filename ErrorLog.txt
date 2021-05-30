@@ -1,0 +1,94 @@
+﻿Error! 30.05.2021 3:33:32: Access to the path 'D:\System Volume Information' is denied.
+Error! 30.05.2021 3:38:51: Access to the path 'D:\System Volume Information' is denied.
+Error! 30.05.2021 3:39:12: Access to the path 'D:\System Volume Information' is denied.
+Error! 30.05.2021 3:41:28: Access to the path 'D:\System Volume Information' is denied.
+Error! 30.05.2021 9:50:55: Access to the path 'D:\System Volume Information' is denied.
+Error! 30.05.2021 9:51:01: Access to the path 'D:\System Volume Information' is denied.
+Error! 30.05.2021 9:51:03: Access to the path 'D:\System Volume Information' is denied.
+Error! 30.05.2021 9:51:04: Access to the path 'D:\System Volume Information' is denied.
+Error! 30.05.2021 9:51:04: Access to the path 'D:\System Volume Information' is denied.
+Error! 30.05.2021 9:51:14: Access to the path 'c:\Documents and Settings' is denied.
+Error! 30.05.2021 9:51:26: Access to the path 'c:\Documents and Settings' is denied.
+Error! 30.05.2021 9:51:30: Access to the path 'c:\Documents and Settings' is denied.
+Error! 30.05.2021 9:51:31: Access to the path 'c:\Documents and Settings' is denied.
+Error! 30.05.2021 9:51:32: Access to the path 'c:\Documents and Settings' is denied.
+Error! 30.05.2021 9:51:33: Access to the path 'c:\Documents and Settings' is denied.
+Error! 30.05.2021 9:51:33: Access to the path 'c:\Documents and Settings' is denied.
+Error! 30.05.2021 9:51:34: Access to the path 'c:\Documents and Settings' is denied.
+Error! 30.05.2021 9:51:35: Access to the path 'c:\Documents and Settings' is denied.
+Error! 30.05.2021 9:51:35: Access to the path 'c:\Documents and Settings' is denied.
+Error! 30.05.2021 9:51:36: Access to the path 'c:\Documents and Settings' is denied.
+Error! 30.05.2021 9:51:37: Access to the path 'c:\Documents and Settings' is denied.
+Error! 30.05.2021 9:51:53: Access to the path 'c:\Documents and Settings' is denied.
+Error! 30.05.2021 9:52:02: Access to the path 'c:\Documents and Settings' is denied.
+Error! 30.05.2021 9:52:09: Access to the path 'C:\Documents and Settings' is denied.
+Error! 30.05.2021 9:52:30: Access to the path 'C:\Documents and Settings' is denied.
+Error! 30.05.2021 9:52:30: Access to the path 'C:\Documents and Settings' is denied.
+Error! 30.05.2021 9:52:31: Access to the path 'C:\Documents and Settings' is denied.
+Error! 30.05.2021 9:52:32: Access to the path 'C:\Documents and Settings' is denied.
+Error! 30.05.2021 9:52:44: Access to the path 'C:\Windows\CSC' is denied.
+Error! 30.05.2021 9:52:49: Access to the path 'C:\Windows\CSC' is denied.
+Error! 30.05.2021 9:52:51: Access to the path 'C:\Windows\CSC' is denied.
+Error! 30.05.2021 9:52:52: Access to the path 'C:\Windows\CSC' is denied.
+Error! 30.05.2021 9:52:53: Access to the path 'C:\Windows\CSC' is denied.
+Error! 30.05.2021 9:52:54: Access to the path 'C:\Windows\CSC' is denied.
+Error! 30.05.2021 9:52:54: Access to the path 'C:\Windows\CSC' is denied.
+Error! 30.05.2021 9:52:55: Access to the path 'C:\Windows\CSC' is denied.
+Error! 30.05.2021 9:52:55: Access to the path 'C:\Windows\CSC' is denied.
+Error! 30.05.2021 9:52:56: Access to the path 'C:\Windows\CSC' is denied.
+Error! 30.05.2021 9:52:57: Access to the path 'C:\Windows\CSC' is denied.
+Error! 30.05.2021 9:52:58: Access to the path 'C:\Windows\CSC' is denied.
+Error! 30.05.2021 9:52:58: Access to the path 'C:\Windows\CSC' is denied.
+Error! 30.05.2021 9:52:59: Access to the path 'C:\Windows\CSC' is denied.
+Error! 30.05.2021 9:52:59: Access to the path 'C:\Windows\CSC' is denied.
+Error! 30.05.2021 9:53:00: Access to the path 'C:\Windows\CSC' is denied.
+Error! 30.05.2021 9:53:00: Access to the path 'C:\Windows\CSC' is denied.
+Error! 30.05.2021 9:53:01: Access to the path 'C:\Windows\CSC' is denied.
+Error! 30.05.2021 9:53:01: Access to the path 'C:\Windows\CSC' is denied.
+Error! 30.05.2021 9:53:02: Access to the path 'C:\Windows\CSC' is denied.
+Error! 30.05.2021 9:53:03: Access to the path 'C:\Windows\CSC' is denied.
+Error! 30.05.2021 9:53:04: Access to the path 'C:\Windows\CSC' is denied.
+Error! 30.05.2021 9:53:04: Access to the path 'C:\Windows\CSC' is denied.
+Error! 30.05.2021 9:53:06: Access to the path 'C:\Windows\CSC' is denied.
+Error! 30.05.2021 9:53:06: Access to the path 'C:\Windows\CSC' is denied.
+Error! 30.05.2021 9:53:07: Access to the path 'C:\Windows\CSC' is denied.
+Error! 30.05.2021 9:55:34: Access to the path 'D:\System Volume Information' is denied.
+Error! 30.05.2021 9:55:42: Access to the path 'D:\System Volume Information' is denied.
+Error! 30.05.2021 9:56:18: Access to the path 'D:\System Volume Information' is denied.
+Error! 30.05.2021 9:59:25: Access to the path 'D:\System Volume Information' is denied.
+Error! 30.05.2021 9:59:45: Access to the path 'D:\System Volume Information' is denied.
+Error! 30.05.2021 10:04:19: Access to the path 'D:\System Volume Information' is denied.
+Error! 30.05.2021 10:06:43: Access to the path 'D:\System Volume Information' is denied.
+Error! 30.05.2021 10:06:49: Access to the path 'D:\System Volume Information' is denied.
+Error! 30.05.2021 10:06:51: Access to the path 'D:\System Volume Information' is denied.
+Error! 30.05.2021 10:06:52: Access to the path 'D:\System Volume Information' is denied.
+Error! 30.05.2021 10:06:56: Access to the path 'D:\System Volume Information' is denied.
+Error! 30.05.2021 10:06:57: Access to the path 'D:\System Volume Information' is denied.
+Error! 30.05.2021 10:27:02: Access to the path 'C:\Documents and Settings' is denied.
+Error! 30.05.2021 10:27:10: Access to the path 'C:\Documents and Settings' is denied.
+Error! 30.05.2021 10:27:11: Access to the path 'C:\Documents and Settings' is denied.
+Error! 30.05.2021 10:27:12: Access to the path 'C:\Documents and Settings' is denied.
+Error! 30.05.2021 10:27:13: Access to the path 'C:\Documents and Settings' is denied.
+Error! 30.05.2021 10:27:14: Access to the path 'C:\Documents and Settings' is denied.
+Error! 30.05.2021 10:27:19: Access to the path 'C:\Documents and Settings' is denied.
+Error! 30.05.2021 10:27:22: Access to the path 'C:\Documents and Settings' is denied.
+Error! 30.05.2021 11:50:25: Access to the path 'C:\Documents and Settings' is denied.
+Error! 30.05.2021 11:50:34: Access to the path 'C:\Documents and Settings' is denied.
+Error! 30.05.2021 11:50:48: Access to the path 'C:\Documents and Settings' is denied.
+Error! 30.05.2021 11:50:56: Access to the path 'D:\System Volume Information' is denied.
+Error! 30.05.2021 11:51:02: Access to the path 'c:\Documents and Settings' is denied.
+Error! 30.05.2021 11:51:04: Access to the path 'D:\System Volume Information' is denied.
+Error! 30.05.2021 11:51:05: Access to the path 'C:\Documents and Settings' is denied.
+Error! 30.05.2021 23:12:13: Access to the path 'C:\Documents and Settings' is denied.
+Error! 30.05.2021 23:12:24: Access to the path 'C:\Documents and Settings' is denied.
+Error! 30.05.2021 23:37:47: Access to the path 'C:\Documents and Settings' is denied.
+Error! 30.05.2021 23:37:56: Access to the path 'D:\System Volume Information' is denied.
+Error! 30.05.2021 23:37:59: Access to the path 'D:\System Volume Information' is denied.
+Error! 30.05.2021 23:46:13: Access to the path 'D:\System Volume Information' is denied.
+Error! 30.05.2021 23:46:34: Access to the path 'D:\System Volume Information' is denied.
+Error! 30.05.2021 23:46:49: Access to the path 'D:\System Volume Information' is denied.
+Error! 30.05.2021 23:49:12: Access to the path 'D:\System Volume Information' is denied.
+Error! 30.05.2021 23:58:10: Access to the path 'D:\System Volume Information' is denied.
+Error! 30.05.2021 23:58:45: Cannot create 'D:\Новый текстовый документ (2).txt' because a file or directory with the same name already exists.
+Error! 31.05.2021 0:56:23: Access to the path 'D:\System Volume Information' is denied.
+Error! 31.05.2021 0:56:59: Access to the path 'D:\System Volume Information' is denied.
