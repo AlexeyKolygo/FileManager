@@ -97,7 +97,8 @@ OUT OF SCOPE
 APPLICATION STRUCTURE/COMMENTS*тут должна быть диаграмма классов, но это ж md + до сюда все равно никто не дочитает, так что...
 -------------------------------
 Приложение состоит из следующих объектов:
-CLASS PROGRAM - ОСНОВНОЙ КЛАСС, ТОЧКА ВХОДА
+**CLASS PROGRAM** - ОСНОВНОЙ КЛАСС, ТОЧКА ВХОДА
+
 Methods:
 - Main - куда ж без него
 - ReadObjects - основной метод, с которого начинается рисовалка+перемещение по страницам + вход в парсер команд
@@ -108,32 +109,37 @@ Methods:
 - CommandParser - собсна, парсер команд. Сюда попадает все то, что юзер вводит в командную строку и делающий магию.
 - GetObjAfterParser - всопмогательный метод. Просто так, чтоб DRY хотя бы как-то соблюдался.
 
-CLASS SETTINGS
+**CLASS SETTINGS**
+
 Fields:
 - DefaultDir(string) - в настройках нет. нужно, если CurrentDir пустое. по дефолту - C:\\
 - CurrentDir(string) - текущая диретория. 
 - CurrentPage(int) - текущая страница.
 - PageCounter(int) - кол-во элементов на странице
 
-CLASS COMMANDPARSER
+**CLASS COMMANDPARSER**
+
 Fields:
 - cd(enum)
 - copy(enum)
 - move(enum)
 - del(enum)
 - info(enum)
+
 Methods:
 - GetCommand - метод, который принимает то, что ввел юзер, а возвращает команду.
 - ValidateCommand - вспомогательный метод, который валидирует команду (сравнивает с перечислениями)
 
-CLASS FOLDERS
+**CLASS FOLDERS**
+
 Methods:
 - Copy - метод копирования директории
 - Delete - метод удаления директории
 - Info - метод получения информации о директории
 - GetSize - метод для определения размера директории
 
-CLASS FILES
+**CLASS FILES**
+
 Methods:
 - Copy - метод копирования файла
 - Delete - метод удаления файла
