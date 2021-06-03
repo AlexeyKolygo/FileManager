@@ -10,22 +10,29 @@ namespace FileManager
     class Program
     {
         static void Main(string[] args)
-        {
-            var appfile = File.ReadAllText("appsettings.json");
-            var settings = JsonSerializer.Deserialize<Settings>(appfile);
-            string folder = String.IsNullOrEmpty(settings.CurrentDir) ? settings.DefaultDir : settings.CurrentDir;
-            DirectoryInfo folderpath = new DirectoryInfo(folder);
-            string[] objects = GetObjects(folderpath.FullName);
-            ReadObjects(objects, folder, settings.PageCounter, settings.CurrentPage);
-        }
 
+        {
+            var settingsmodel = new Settings();
+            var settings = settingsmodel.ReadSettings(settingsmodel);
+            string folder = String.IsNullOrEmpty(settings.CurrentDir) ? settings.DefaultDir : settings.CurrentDir;
+            if (Directory.Exists(folder))
+            {
+                string[] objects = GetObjects(folder);
+                ReadObjects(objects, folder, settings.PageCounter, settings.CurrentPage);
+            }
+            else
+            {
+                Console.WriteLine($"Directory is no longer exists.Application will start with default dir {settings.DefaultDir}");
+                Console.ReadLine();
+                string[] objects = GetObjects(settings.DefaultDir);
+                ReadObjects(objects, settings.DefaultDir, settings.PageCounter, settings.CurrentPage);
+            }
+        }
         public static void ReadObjects(string[] folders, string currentdir, int pagecounter, int p)
         {
 
             var folder_list = ChunkToPages(folders, pagecounter);
             var last_page = folder_list[folder_list.GetLength(0) - 1, 1];
-            var appfile = File.ReadAllText("appsettings.json");
-            var settings = JsonSerializer.Deserialize<Settings>(appfile);
             DirectoryInfo d = new DirectoryInfo(currentdir);
             var curdirinfo = new Folders();
 
@@ -67,7 +74,7 @@ namespace FileManager
                 {
                     var history = File.ReadAllText("history.txt").Trim().Split(';');
                     Console.Write("Command>: ");
-                    string command = ScrollCommand(history, history.Length - 1).Trim();
+                    string command = ScrollCommand(history).Trim();
                     File.AppendAllText("history.txt", command + ';' + Environment.NewLine);
                     CommandParser(command, pagecounter, currentdir);
 
@@ -84,50 +91,38 @@ namespace FileManager
                 Console.Clear();
             }
 
-
         }
-        static string ScrollCommand(string[] history, int i)
+        static string ScrollCommand(string[] history)
         {
             string result = Console.ReadLine();
             if (String.IsNullOrEmpty(result))
             {
                 var cominput = Console.ReadKey();
 
-                if (cominput.Key == ConsoleKey.UpArrow)
+                switch (cominput.Key)
                 {
-                    for (int k = 0; k < history.Length; k++)
-                    {
-                        k = (k == history.Length - 1) ? 0 : k;
-                        result = history[k];
-                        Console.Write(result);
-                        var res = Console.ReadKey();
-                        if (res.Key == ConsoleKey.DownArrow)
+                    case ConsoleKey.UpArrow:
+                        for (int k = 0; k < history.Length; k++)
                         {
-                            k = k == 0 ? 1 : k;
-                            Console.Write(history[k - 1]);
-                            Console.ReadKey();
+                            k = (k == history.Length - 1) ? 0 : k;
+                            result = history[k];
+                            Console.Write(result);
+                            var res = Console.ReadKey();
+                            if (res.Key == ConsoleKey.DownArrow)
+                            {
+                                k = k == 0 ? 1 : k;
+                                Console.Write(history[k - 1]);
+                                Console.ReadKey();
+                            }
                         }
-                        if (res.Key == ConsoleKey.Enter)
-                        {
-                            return result;
-                        }
-                        if (res.Key == ConsoleKey.Escape)
-                        {
-                            return result;
-                        }
-
-                    }
-
+                        break;
+                    case ConsoleKey.Enter:
+                    case ConsoleKey.Escape:
+                        return result;
                 }
-            }
-            else
-            {
-                return result;
             }
             return result;
         }
-
-
         static string[] GetObjects(string defaultdir)
         {
             string[] folders = Directory.GetDirectories(defaultdir);
@@ -158,181 +153,175 @@ namespace FileManager
         static string[,] ChunkToPages(string[] i, int page)
         {
             string[,] result = new string[i.Length, 2];
-            int pagecount = 1;
-            for (int k = 0; k < i.Length; k++)
+            try
             {
-                result[k, 0] = i[k];
-                result[k, 1] = pagecount.ToString();
-                if ((k + 1) % page == 0) { pagecount++; }
+                int pagecount = 1;
+                for (int k = 0; k < i.Length; k++)
+                {
+                    result[k, 0] = i[k];
+                    result[k, 1] = pagecount.ToString();
+                    if ((k + 1) % page == 0) { pagecount++; }
+                }
+
+            }
+            catch (Exception e)
+            {
+                ShowEx(e, "ChunkToPages");
+
             }
             return result;
         }
-
-
-        private static void CommandParser(string command, int page, string currentdir)
+        private static void CommandParser(string input, int page, string currentdir)
         {
             var parser = new CommandParser();
-            var todo = parser.GetCommand(command);
-            if (todo == Command.cd.ToString())
+            var command = parser.GetCommand(input);
+            PerformOperation(command, page, input);
+        }
+        public static void PerformOperation(string command, int page, string input)
+
+        {
+            string obj = GetObjAfterParser(input, command);
+            switch (command)
             {
-                string obj = GetObjAfterParser(command, todo);
+                case "cd":
+                    GoToDirectory(page, obj);
+                    break;
+                case "copy":
+                    Copy(obj);
+                    break;
+                case "del":
+                    Delete(obj);
+                    break;
+                case "info":
+                    Info(obj);
+                    break;
+            }
+        }
 
-                try
+        static string GetObjAfterParser(string command, string splitter)
+        {
+            try
+            {
+                string[] comArray = command.Split(splitter + ':');
+                string obj = comArray[1].Trim();
+                return obj;
+            }
+            catch
+            {
+                return String.Empty;
+            }
+        }
+        private static void Info(string obj)
+        {
+            try
+            {
+                if (!obj.Contains('.'))
                 {
-                    DirectoryInfo folderpath = new DirectoryInfo(obj);
-                    if (folderpath.Exists)
-                    {
-                        string[] objects = GetObjects(folderpath.FullName);
-                        Console.Clear();
-                        ReadObjects(objects, obj, page, 1);
-                    }
-                    else
-                    {
-                        Console.WriteLine("Empty path detected.Press Enter to get on previous page");//не стал это логировать в файл. просто потому что не увидел смысла:)но если прям сильно нужно, могу и в лог записать, пример ниже
-                        Console.ReadLine();
-                    }
-
-                }
-                catch (UnauthorizedAccessException ue)
-                {
-                    File.ReadAllText("ErrorLog.txt");
-                    string exmessage = $"Error! {DateTime.Now}: {ue.Message}";
-                    File.AppendAllText("ErrorLog.txt", exmessage + Environment.NewLine);
-                    Console.WriteLine("Access to this folder is denied");
+                    var objtype = new Folders();
+                    DirectoryInfo folder = new DirectoryInfo(obj);
+                    objtype.Info(folder);
                     Console.ReadLine();
                 }
-                catch (Exception e)
+                else
                 {
-                    File.ReadAllText("ErrorLog.txt");
-                    string exmessage = $"Error! {DateTime.Now}: {e.Message}";
-                    File.AppendAllText("ErrorLog.txt", exmessage + Environment.NewLine);
-                    Console.WriteLine("Something went wrong! Please refer to the error log file for details");
-                    Console.ReadLine();
-
+                    var objtype = new Files();
+                    FileInfo file = new FileInfo(obj);
+                    objtype.Info(file);
                 }
             }
-
-            if (todo == Command.copy.ToString())
+            catch (Exception e)
             {
-                try
-                {
-                    string obj = GetObjAfterParser(command, todo);
-                    var originpath = obj.Split(">");
-
-                    if (!obj.Contains('.'))
-                    {
-                        var objtype = new Folders();
-                        DirectoryInfo pathfolder = new DirectoryInfo(originpath[0]);
-                        DirectoryInfo pastepath = new DirectoryInfo(originpath[1]);
-                        objtype.Copy(pathfolder, pastepath);
-                    }
-                    else
-                    {
-                        var objtype = new Files();
-                        FileInfo origin = new FileInfo(originpath[0]);
-                        DirectoryInfo pastepath = new DirectoryInfo(originpath[1]);
-                        objtype.Copy(origin, pastepath);
-                    };
-
-                }
-                catch (UnauthorizedAccessException ue)
-                {
-                    File.ReadAllText("ErrorLog.txt");
-                    string exmessage = $"Error! {DateTime.Now}: {ue.Message}";
-                    File.AppendAllText("ErrorLog.txt", exmessage + Environment.NewLine);
-                    Console.WriteLine("Access to this object is denied");
-                    Console.ReadLine();
-                }
-
-                catch (Exception e)
-                {
-                    File.ReadAllText("ErrorLog.txt");
-                    string exmessage = $"Error! {DateTime.Now}: {e.Message}";
-                    File.AppendAllText("ErrorLog.txt", exmessage + Environment.NewLine);
-                    Console.WriteLine("Something went wrong! Please refer to the error log file for details");
-                    Console.ReadLine();
-
-                }
-
-
+                ShowEx(e, "info");
             }
+        }
 
-            if (todo == Command.del.ToString())
-                try
-                {
-                    {
-                        string obj = GetObjAfterParser(command, todo);
-                        if (!obj.Contains('.'))
-                        {
-                            var objtype = new Folders();
-                            DirectoryInfo folder = new DirectoryInfo(obj);
-                            objtype.Delete(folder);
-                        }
-                        else
-                        {
-                            var objtype = new Files();
-                            FileInfo file = new FileInfo(obj);
-                            objtype.Delete(file);
-                        }
-                    }
-                }
-                catch (Exception e)
-                {
-                    File.ReadAllText("ErrorLog.txt");
-                    string exmessage = $"Error! {DateTime.Now}: {e.Message}";
-                    File.AppendAllText("ErrorLog.txt", exmessage + Environment.NewLine);
-                    Console.WriteLine("Something went wrong! Please refer to the error log file for details");
-                    Console.ReadLine();
-
-                }
-            if (todo == Command.info.ToString())
+        private static void Delete(string obj)
+        {
+            try
             {
-                try
                 {
-                    string obj = GetObjAfterParser(command, todo);
                     if (!obj.Contains('.'))
                     {
                         var objtype = new Folders();
                         DirectoryInfo folder = new DirectoryInfo(obj);
-                        objtype.Info(folder);
-                        Console.ReadLine();
+                        objtype.Delete(folder);
                     }
                     else
                     {
                         var objtype = new Files();
                         FileInfo file = new FileInfo(obj);
-                        objtype.Info(file);
+                        objtype.Delete(file);
                     }
                 }
-                catch (Exception e)
-                {
-                    File.ReadAllText("ErrorLog.txt");
-                    string exmessage = $"Error! {DateTime.Now}: {e.Message}";
-                    File.AppendAllText("ErrorLog.txt", exmessage + Environment.NewLine);
-                    Console.WriteLine("Something went wrong! Please refer to the error log file for details");
-                    Console.ReadLine();
+            }
+            catch (Exception e)
+            {
+                ShowEx(e, "del");
+            }
+        }
+        private static void Copy(string obj)
+        {
+            try
+            {
 
+                var originpath = obj.Split(">");
+
+                if (!obj.Contains('.'))
+                {
+                    var objtype = new Folders();
+                    DirectoryInfo pathfolder = new DirectoryInfo(originpath[0]);
+                    DirectoryInfo pastepath = new DirectoryInfo(originpath[1]);
+                    objtype.Copy(pathfolder, pastepath);
+                }
+                else
+                {
+                    var objtype = new Files();
+                    FileInfo origin = new FileInfo(originpath[0]);
+                    DirectoryInfo pastepath = new DirectoryInfo(originpath[1]);
+                    objtype.Copy(origin, pastepath);
+                };
+
+            }
+            catch (Exception e)
+            {
+                ShowEx(e, "copy");
+            }
+        }
+        private static void GoToDirectory(int page, string obj)
+        {
+            try
+            {
+                DirectoryInfo folderpath = new DirectoryInfo(obj);
+                if (folderpath.Exists)
+                {
+                    string[] objects = GetObjects(folderpath.FullName);
+                    Console.Clear();
+                    ReadObjects(objects, obj, page, 1);
+                }
+                else
+                {
+                    Console.WriteLine("Empty path detected.Press Enter to get on previous page");//не стал это логировать в файл. просто потому что не увидел смысла:)но если прям сильно нужно, могу и в лог записать, пример ниже
+                    Console.ReadLine();
                 }
             }
-        }
-        static string GetObjAfterParser(string command, string splitter)
-        {
-            try { 
-
-            string[] comArray = command.Split(splitter + ':');
-            string obj = comArray[1].Trim();
-            return obj;
-            }
-            catch 
+            catch (Exception e)
             {
-               
-                Console.WriteLine("Can't get valid command");
-                Console.ReadLine();
-                return string.Empty;
+                ShowEx(e, "cd");
+                return;
             }
         }
 
+        static private void ShowEx(Exception ex, string operation)
+        {
+            string message = ex.Message;
+            File.ReadAllText("ErrorLog.txt");
+            string logstring = $"Error! {DateTime.Now}: {message}";
+            File.AppendAllText("ErrorLog.txt", logstring + Environment.NewLine);
+            Console.WriteLine($"Error while processing comand/method '{operation}'. Reason: {message}");
+            Console.ReadLine();
+        }
     }
+
 }
 
 
