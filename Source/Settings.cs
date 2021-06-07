@@ -7,7 +7,7 @@ namespace FileManager
 {
     public class Settings
     {
-        public string DefaultDir = "C:\\";
+        public string DefaultDir = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile).ToString();
         public string CurrentDir { get; set; }
         public int CurrentPage { get; set; }
         public int PageCounter { get; set; }
