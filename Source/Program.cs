@@ -12,12 +12,14 @@ namespace FileManager
         static void Main(string[] args)
 
         {
+            AppFilesChk();
             var settingsmodel = new Settings();
             var settings = settingsmodel.ReadSettings(settingsmodel);
             string folder = String.IsNullOrEmpty(settings.CurrentDir) ? settings.DefaultDir : settings.CurrentDir;
             if (Directory.Exists(folder))
             {
                 string[] objects = GetObjects(folder);
+                
                 ReadObjects(objects, folder, settings.PageCounter, settings.CurrentPage);
             }
             else
@@ -319,6 +321,22 @@ namespace FileManager
             File.AppendAllText("ErrorLog.txt", logstring + Environment.NewLine);
             Console.WriteLine($"Error while processing comand/method '{operation}'. Reason: {message}");
             Console.ReadLine();
+        }
+
+        static private void AppFilesChk()
+        {
+            var history = Path.Combine(Directory.GetCurrentDirectory(), "history.txt");
+            if (!File.Exists(history))
+            {
+                using (StreamWriter sr = File.CreateText(history)) { sr.WriteLine(";"); }
+            }
+
+            var errorlog = Path.Combine(Directory.GetCurrentDirectory(), "ErrorLog.txt");
+            if (!File.Exists(errorlog))
+            {
+                using (StreamWriter sr = File.CreateText(errorlog)) { sr.WriteLine(";"); }
+            }
+
         }
     }
 
