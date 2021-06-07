@@ -19,7 +19,7 @@ namespace FileManager
             if (Directory.Exists(folder))
             {
                 string[] objects = GetObjects(folder);
-                
+
                 ReadObjects(objects, folder, settings.PageCounter, settings.CurrentPage);
             }
             else
@@ -77,8 +77,9 @@ namespace FileManager
                     var history = File.ReadAllText("history.txt").Trim().Split(';');
                     Console.Write("Command>: ");
                     string command = ScrollCommand(history).Trim();
-                    File.AppendAllText("history.txt", command + ';' + Environment.NewLine);
+                    if (!String.IsNullOrEmpty(command)) { File.AppendAllText("history.txt", command + ';' + Environment.NewLine); }
                     CommandParser(command, pagecounter, currentdir);
+
 
                 }
                 if (input.Key == ConsoleKey.Escape)
@@ -86,7 +87,6 @@ namespace FileManager
 
                     var settingsset = new Settings("", currentdir, p, pagecounter);
                     settingsset.SettingsSetter();
-                    File.WriteAllText("history.txt", ";");
                     Environment.Exit(0);
 
                 }
@@ -110,21 +110,21 @@ namespace FileManager
                             result = history[k];
                             Console.Write(result);
                             var res = Console.ReadKey();
+                            if (res.Key == ConsoleKey.Enter) { return result; }
                             if (res.Key == ConsoleKey.DownArrow)
                             {
                                 k = k == 0 ? 1 : k;
                                 Console.Write(history[k - 1]);
-                                Console.ReadKey();
+                                var downarrow = Console.ReadKey();
+                                if (downarrow.Key == ConsoleKey.Enter) { return result; }
                             }
                         }
                         break;
-                    case ConsoleKey.Enter:
-                    case ConsoleKey.Escape:
-                        return result;
                 }
             }
             return result;
         }
+
         static string[] GetObjects(string defaultdir)
         {
             string[] folders = Directory.GetDirectories(defaultdir);
