@@ -18,6 +18,7 @@ namespace FileManager
     public class CommandParser
         
     {
+
         public string GetCommand(string str)
         {
             string command = "";
@@ -36,7 +37,6 @@ namespace FileManager
             }
             return command;
         }
-
 
         private bool ValidateCommand(string command)
         {

@@ -10,7 +10,6 @@ namespace FileManager
 
     public class Folders
     {
-
         public void Copy(DirectoryInfo path, DirectoryInfo paste)
         {
 
@@ -87,7 +86,6 @@ FolderSize: {size / 1000000} megabytes");
         }
     }
 }
-
     public class Files
     {
         public void Copy(FileInfo file, DirectoryInfo paste)
